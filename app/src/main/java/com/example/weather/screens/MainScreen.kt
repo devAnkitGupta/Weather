@@ -44,10 +44,14 @@ import com.example.weather.widgets.WeatherDetailRow
 import com.example.weather.widgets.WeatherStateImage
 
 @Composable
-fun MainScreen(navController: NavController, mainViewModel: MainViewModel = hiltViewModel()){
+fun MainScreen(
+    navController: NavController,
+    mainViewModel: MainViewModel = hiltViewModel(),
+    city: String?
+){
 
     val weatherData = produceState<DataOrException<Weather, Boolean, Exception>>(initialValue = DataOrException(loading = true))  {
-        value = mainViewModel.getWeatherData("Seattle")
+        value = mainViewModel.getWeatherData(city.toString())
     }.value
     print(weatherData.data.toString())
 

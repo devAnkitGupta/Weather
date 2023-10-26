@@ -1,9 +1,11 @@
 package com.example.weather.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -29,6 +31,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.weather.navigation.WeatherScreens
 import com.example.weather.widgets.WeatherAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,14 +41,11 @@ fun SearchScreen(navController: NavController){
         WeatherAppBar(
             "Search",
             navController = navController,
-
             icon =  Icons.Default.ArrowBack,
             isMainScreen = false,
             onButtonClicked = {
                 navController.popBackStack()
-            }
-            )
-
+            })
     }){
         it
    Surface {
@@ -53,7 +53,20 @@ fun SearchScreen(navController: NavController){
            verticalArrangement = Arrangement.Center,
            horizontalAlignment = Alignment.CenterHorizontally
        ) {
-
+           Box(
+               modifier = Modifier.size(
+                   height = 50.dp,
+                   width = 4.dp
+               )
+           )
+          SearchBar(modifier = Modifier
+              .fillMaxWidth()
+              .padding(16.dp)
+              .align(Alignment.CenterHorizontally),
+          ){
+              mCity ->
+           navController.navigate(WeatherScreens.MainScreen.name + "/$mCity")
+          }
        }
    }
 
@@ -63,6 +76,7 @@ fun SearchScreen(navController: NavController){
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SearchBar(
+    modifier: Modifier = Modifier,
     onSearch: (String) -> Unit = {}
 ){
     Column {
@@ -76,7 +90,12 @@ fun SearchBar(
         CommonTextField(
             valueState = searchQueryState,
             placeholder = "Seattle",
-            onAction = KeyboardActions {}
+            onAction = KeyboardActions {
+                if(!valid) return@KeyboardActions
+                onSearch(searchQueryState.value.trim())
+                searchQueryState.value = ""
+                keyboardController?.hide()
+            }
         )
     }
 }
