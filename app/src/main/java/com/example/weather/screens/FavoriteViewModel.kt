@@ -29,7 +29,6 @@ class FavoriteViewModel @Inject constructor(private val repository: WeatherDbRep
                         Log.d("TAG","")
                     }else{
                         _favList.value = listOfFavs
-
                     }
                 }
         }

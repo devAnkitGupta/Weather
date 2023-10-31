@@ -1,6 +1,5 @@
 package com.example.weather.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -69,9 +68,7 @@ fun ShowData(weather: Weather, navController: NavController){
   WeatherAppBar(title = weather.city.name + ",${weather.city.country}",
       icon = Icons.Default.ArrowBack,
       navController = navController,
-      onButtonClicked = {
-          Log.d("TAG","MainScaffold: Button Clicked")
-      },
+
       onAddActionClicked = {
        navController.navigate(WeatherScreens.SearchScreen.name)
       }
