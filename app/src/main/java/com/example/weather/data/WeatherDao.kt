@@ -1,11 +1,6 @@
 package com.example.weather.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.weather.model.Favorite
 import com.example.weather.model.Unit
 import kotlinx.coroutines.flow.Flow
